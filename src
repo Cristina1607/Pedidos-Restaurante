@@ -1,0 +1,57 @@
+CREATE DATABASE IF NOT EXISTS Restaurante;
+USE Restaurante;
+
+CREATE TABLE IF NOT EXISTS Cliente (
+ID_Cliente INT AUTO_INCREMENT PRIMARY KEY,
+Nome_Cliente VARCHAR(100) NOT NULL,
+Telefone_Cliente DECIMAL(15) NOT NULL
+);
+
+INSERT INTO Cliente (Nome_Cliente, Telefone_Cliente)
+VALUES
+('Clara', '200012345'),
+('Cris', '150976456'),
+('Cecilía', '140343567'),
+('Camila', '200345768'),
+('Carmen', '150244653');
+
+CREATE TABLE IF NOT EXISTS Prato (
+ID_Prato INT AUTO_INCREMENT PRIMARY KEY,
+Nome_Prato VARCHAR(100),
+Preco_Prato DECIMAL(10, 2)
+);
+
+INSERT INTO Prato (Nome_Prato, Preco_Prato)
+VALUES
+('Macarrão', '25'),
+('Feijoada', '60'),
+('Bife', '54'),
+('Legumes', '19'),
+('Careteiro', '50');
+
+CREATE TABLE IF NOT EXISTS Pedido (
+ID_Pedido INT AUTO_INCREMENT PRIMARY KEY,
+ID_Cliente INT,
+FOREIGN KEY (ID_Cliente) REFERENCES Cliente(ID_Cliente)
+ON DELETE SET NULL ON UPDATE CASCADE,
+Data_Pedido DATE
+);
+
+INSERT INTO Pedido (Data_Pedido)
+VALUES
+('2024/11/11'),
+('2024/11/11'),
+('2024/12/11');
+
+CREATE TABLE IF NOT EXISTS Item (
+ID_Item INT AUTO_INCREMENT PRIMARY KEY,
+ID_Pedido INT,
+FOREIGN KEY (ID_Pedido) REFERENCES Pedido(ID_Pedido)
+ON DELETE SET NULL ON UPDATE CASCADE,
+ID_Prato INT,
+FOREIGN KEY(ID_Prato) REFERENCES Prato(ID_Prato)
+ON DELETE SET NULL ON UPDATE CASCADE,
+Quantidade_Pedido VARCHAR(100)
+);
+
+SELECT * FROM Cliente;
